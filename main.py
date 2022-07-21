@@ -4,6 +4,8 @@ from urllib.parse import urlparse
 
 import requests
 
+from dotenv import load_dotenv
+
 
 def get_comics_url(service_response: dict) -> str:
     comic_url = service_response['img']
@@ -50,6 +52,8 @@ def download_comics(service_response: dict) -> None:
 
 
 def main() -> None:
+    load_dotenv()
+
     url = 'https://xkcd.com/353/info.0.json'
     response = requests.get(url=url)
     response.raise_for_status()
