@@ -4,13 +4,19 @@ import requests
 
 from general_functions import find_comic_in_folder
 
+
+API_VERSION = 5.131
+
+
 def get_url_for_comic_upload(group_id: str, vk_token: str) -> str:
+    """
+    Return upload url for upload photos
+    """
     url = 'https://api.vk.com/method/photos.getWallUploadServer'
-    api_version = 5.131
     params = {
         'access_token': vk_token,
         'group_id': group_id,
-        'v': api_version
+        'v': API_VERSION
     }
 
     response = requests.get(url=url, params=params)
@@ -28,11 +34,14 @@ class UploadComicResponse(NamedTuple):
 
 def upload_comic_to_server(group_id: str, vk_token: str,
                            upload_url: str) -> UploadComicResponse:
-    api_version = 5.131
+    """
+    Return info about uploaded image.
+    Information like hash, server and photo_url
+    """
     params = {
         'access_token': vk_token,
         'group_id': group_id,
-        'v': api_version
+        'v': API_VERSION
     }
 
     comic = find_comic_in_folder()
@@ -53,15 +62,17 @@ def upload_comic_to_server(group_id: str, vk_token: str,
 
 def save_comic_to_server(group_id: str, vk_token: str, photo: str,
                          server: str, hash: str) -> str:
+    """
+    Save comic to VK-servers and return attachment for post this comic on wall
+    """
     url = 'https://api.vk.com/method/photos.saveWallPhoto'
-    api_version = 5.131
     params = {
         'access_token': vk_token,
         'group_id': group_id,
         'server': server,
         'photo': photo,
         'hash': hash,
-        'v': api_version
+        'v': API_VERSION
     }
 
     response = requests.post(url=url, params=params)
@@ -78,15 +89,17 @@ def save_comic_to_server(group_id: str, vk_token: str, photo: str,
 
 def post_comic_on_wall(group_id: str, vk_token: str, message: str,
                        attachments: str) -> None:
+    """
+    Post comic on wall in VK community
+    """
     url = 'https://api.vk.com/method/wall.post'
-    api_version = 5.131
     params = {
         'access_token': vk_token,
         'message': message,
         'owner_id': f'-{group_id}',
         'from_group': 1,
         'attachments': attachments,
-        'v': api_version
+        'v': API_VERSION
     }
 
     response = requests.get(url=url, params=params)
