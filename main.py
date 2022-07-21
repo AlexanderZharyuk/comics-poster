@@ -51,8 +51,23 @@ def download_comics(service_response: dict) -> None:
         comics_file.write(comic)
 
 
+def get_vk_groups(vk_token: str) -> None:
+    api_version = 5.131
+    params = {
+        'access_token': vk_token,
+        'v': api_version
+    }
+
+    vk_url = 'https://api.vk.com/method/groups.get'
+    response = requests.get(url=vk_url, params=params)
+    print(response.json())
+
+
 def main() -> None:
     load_dotenv()
+    access_token = os.environ['ACCESS_TOKEN']
+
+    get_vk_groups(vk_token=access_token)
 
     url = 'https://xkcd.com/353/info.0.json'
     response = requests.get(url=url)
