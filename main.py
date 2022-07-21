@@ -5,16 +5,9 @@ from urllib.parse import urlparse
 import requests
 
 
-def get_service_response(url: str) -> dict:
-    response = requests.get(url=url)
-    response.raise_for_status()
-    service_response = response.json()
-
-    return service_response
-
-
 def get_comics_url(service_response: dict) -> str:
     comic_url = service_response['img']
+
     return comic_url
 
 
@@ -33,12 +26,16 @@ def get_comics_filename(service_response: dict) -> str:
     return filename
 
 
-def download_comics() -> None:
+def get_author_comment(service_response: dict) -> str:
+    author_comment = service_response['alt']
+
+    return author_comment
+
+
+def download_comics(service_response: dict) -> None:
     download_folder = 'images'
     os.makedirs(download_folder, exist_ok=True)
 
-    url = 'https://xkcd.com/353/info.0.json'
-    service_response = get_service_response(url=url)
     comic_url = get_comics_url(service_response=service_response)
 
     response = requests.get(url=comic_url)
@@ -47,12 +44,20 @@ def download_comics() -> None:
     comic = response.content
     comic_name = get_comics_filename(service_response=service_response)
     comic_path = os.path.join(download_folder, comic_name)
-    author_comment = service_response['alt']
-    print(author_comment)
 
     with open(comic_path, 'wb') as comics_file:
         comics_file.write(comic)
 
 
+def main() -> None:
+    url = 'https://xkcd.com/353/info.0.json'
+    response = requests.get(url=url)
+    response.raise_for_status()
+    service_response = response.json()
+
+    download_comics(service_response=service_response)
+    print(get_author_comment(service_response=service_response))
+
+
 if __name__ == '__main__':
-    download_comics()
+    main()
