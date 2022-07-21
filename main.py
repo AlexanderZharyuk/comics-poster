@@ -47,6 +47,8 @@ def download_comics() -> None:
     comic = response.content
     comic_name = get_comics_filename(service_response=service_response)
     comic_path = os.path.join(download_folder, comic_name)
+    author_comment = service_response['alt']
+    print(author_comment)
 
     with open(comic_path, 'wb') as comics_file:
         comics_file.write(comic)
