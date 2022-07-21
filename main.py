@@ -8,6 +8,7 @@ from dotenv import load_dotenv
 from vk_api import (get_url_for_comic_upload, upload_comic_to_server,
                     save_comic_to_server, post_comic_on_wall)
 from xkcd_api import get_random_comic, download_comic, get_author_comment
+from general_functions import delete_comic_from_folder
 
 
 def main() -> None:
@@ -48,6 +49,7 @@ def main() -> None:
         message=comment_by_author,
         attachments=attachment
     )
+    delete_comic_from_folder()
 
 
 if __name__ == '__main__':
