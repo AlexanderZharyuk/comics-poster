@@ -12,21 +12,21 @@ class RandomComic(NamedTuple):
     comment_by_author: str
 
 
-def get_comic_extension(comic_url: str) -> str:
+def get_file_extension(file_url: str) -> str:
     """
     Return comic extension
     """
-    comic_path = urlparse(url=comic_url).path
+    comic_path = urlparse(url=file_url).path
 
     return os.path.splitext(comic_path)[-1]
 
 
-def get_comic_filename(comic_name: str, comic_url: str) -> str:
+def get_filename(filename: str, file_url: str) -> str:
     """
     Return comic filename. For example: comic.png
     """
-    comic_extension = get_comic_extension(comic_url=comic_url)
-    filename = f'{comic_name}{comic_extension}'
+    file_extension = get_file_extension(file_url=file_url)
+    filename = f'{filename}{file_extension}'
 
     return filename
 
@@ -60,9 +60,9 @@ def download_comic(comic_url: str, comic_name: str) -> None:
     response.raise_for_status()
 
     comic = response.content
-    comic_filename = get_comic_filename(
-        comic_name=comic_name,
-        comic_url=comic_url
+    comic_filename = get_filename(
+        filename=comic_name,
+        file_url=comic_url
     )
 
     with open(comic_filename, 'wb') as comics_file:
