@@ -13,7 +13,7 @@ pip install -r requirements.txt
 
 Внутри этого файла должны быть переменные с вашими секретным данными от VK API:
 ```
-ACCESS_TOKEN=<YOUR-ACCESS-TOKEN>
+VK_ACCESS_TOKEN=<YOUR-VK-ACCESS-TOKEN>
 GROUP_ID=<YOUR-GROUP-ID>
 ```
 
