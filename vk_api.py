@@ -49,15 +49,16 @@ def upload_comic_to_server(group_id: str, vk_token: str,
         files = {
             'photo': upload_file,
         }
+
         response = requests.post(url=upload_url, files=files, params=params)
         response.raise_for_status()
-        api_response = response.json()
 
-        server = api_response['server']
-        photo = api_response['photo']
-        hash = api_response['hash']
+    api_response = response.json()
+    server = api_response['server']
+    photo = api_response['photo']
+    hash = api_response['hash']
 
-        return UploadComicResponse(server=server, photo=photo, hash=hash)
+    return UploadComicResponse(server=server, photo=photo, hash=hash)
 
 
 def save_comic_to_server(group_id: str, vk_token: str, photo: str,
