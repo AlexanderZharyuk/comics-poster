@@ -18,15 +18,6 @@ def get_random_comic(comic_number: int) -> dict:
     return service_response
 
 
-def get_comic_url(service_response: dict) -> str:
-    """
-    Return url with image for download
-    """
-    comic_url = service_response['img']
-
-    return comic_url
-
-
 def get_comic_extension(service_response: dict) -> str:
     """
     Return comic extension
@@ -48,20 +39,11 @@ def get_comic_filename(service_response: dict) -> str:
     return filename
 
 
-def get_author_comment(service_response: dict) -> str:
-    """
-    Return original comment from comic author
-    """
-    author_comment = service_response['alt']
-
-    return author_comment
-
-
 def download_comic(service_response: dict) -> None:
     """
     Download comic to folder
     """
-    comic_url = get_comic_url(service_response=service_response)
+    comic_url = service_response['img']
 
     response = requests.get(url=comic_url)
     response.raise_for_status()

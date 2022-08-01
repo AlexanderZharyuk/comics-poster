@@ -7,7 +7,7 @@ from dotenv import load_dotenv
 
 from vk_api import (get_url_for_comic_upload, upload_comic_to_server,
                     save_comic_to_server, post_comic_on_wall)
-from xkcd_api import get_random_comic, download_comic, get_author_comment
+from xkcd_api import get_random_comic, download_comic
 from general_functions import delete_comic_from_folder
 
 
@@ -25,7 +25,7 @@ def main() -> None:
 
     service_response = get_random_comic(comic_number=random_comic_id)
     download_comic(service_response=service_response)
-    comment_by_author = get_author_comment(service_response=service_response)
+    comment_by_author = service_response['alt']
 
     upload_url = get_url_for_comic_upload(
         group_id=vk_group_id,
