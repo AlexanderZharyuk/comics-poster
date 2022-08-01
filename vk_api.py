@@ -8,6 +8,12 @@ from general_functions import find_comic_in_folder
 API_VERSION = 5.131
 
 
+class UploadComicResponse(NamedTuple):
+    server: str
+    photo: str
+    hash: str
+
+
 def get_url_for_comic_upload(group_id: str, vk_token: str) -> str:
     """
     Return upload url for upload photos
@@ -24,12 +30,6 @@ def get_url_for_comic_upload(group_id: str, vk_token: str) -> str:
     api_response = response.json()
 
     return api_response['response']['upload_url']
-
-
-class UploadComicResponse(NamedTuple):
-    server: str
-    photo: str
-    hash: str
 
 
 def upload_comic_to_server(group_id: str, vk_token: str,
