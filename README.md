@@ -1,4 +1,4 @@
-#COMICS POSTER
+# COMICS POSTER
 
 Script for downloading a random comic from the site [XKCD](https://xkcd.com/) and posting it to [VK](https://vk.com/) group.
 
